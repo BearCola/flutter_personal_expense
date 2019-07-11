@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_personal_expenses/widgets/chart.dart';
 
 import 'models/transaction.dart';
 import 'widgets/new_transaction.dart';
@@ -10,11 +11,28 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Personal Expenses',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
+        accentColor: Colors.amber,
+        fontFamily: 'Quicksand',
+        textTheme: ThemeData.light().textTheme.copyWith(
+              title: TextStyle(
+                fontFamily: 'OpenSans',
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ),
+        appBarTheme: AppBarTheme(
+          textTheme: ThemeData.light().textTheme.copyWith(
+                title: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 20,
+                ),
+              ),
+        ),
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Personal Expenses'),
     );
   }
 }
@@ -33,18 +51,18 @@ class _MyHomePageState extends State<MyHomePage> {
   final amountController = TextEditingController();
 
   final List<Transaction> _userTransactions = [
-    Transaction(
-      id: 't1',
-      title: 'New Shoes',
-      amount: 69.99,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Weekly Groceries',
-      amount: 16.53,
-      date: DateTime.now(),
-    ),
+//    Transaction(
+//      id: 't1',
+//      title: 'New Shoes',
+//      amount: 69.99,
+//      date: DateTime.now(),
+//    ),
+//    Transaction(
+//      id: 't2',
+//      title: 'Weekly Groceries',
+//      amount: 16.53,
+//      date: DateTime.now(),
+//    ),
   ];
 
   void _addNewTransaction(String txTitle, double txAmount) {
@@ -76,7 +94,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(
+          widget.title,
+//          style: TextStyle(fontFamily: 'OpenSans'),
+        ),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
@@ -88,14 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Card(
-              color: Colors.blue,
-              child: Container(
-                width: double.infinity,
-                child: Text('Chart!'),
-              ),
-              elevation: 5,
-            ),
+            Chart(),
             TransactionList(_userTransactions),
           ],
         ),
